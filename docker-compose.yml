@@ -94,6 +94,20 @@ services:
       - db
     networks:
       - net1
+      
+  minio:
+    container_name: minio
+    env_file: .env
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_storage:/data
+
+    command: ["server", "--console-address", ":9001", "/data"]
+    networks:
+      - net1
 
 volumes:
   db_home:
@@ -105,6 +119,8 @@ volumes:
   web_root:
     external: false
   redis_data:
+    external: false
+  minio_storage: 
     external: false
 
 networks:
