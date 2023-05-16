@@ -9,3 +9,6 @@ keystoneauth1==5.0.0
 PyYAML==6.0
 prometheus_client==0.15.0
 pyopenssl==22.1.0
+graphene==3.0
+graphql-server==3.0.0b4
+markdown
