@@ -108,7 +108,26 @@ services:
     command: ["server", "--console-address", ":9001", "/data"]
     networks:
       - net1
-
+  vsf:
+    env_file: .env
+    build:
+      context: ./vsf
+      dockerfile: Dockerfile
+      args:
+        TAG_BRANCH: "v1.5.1"
+    container_name: vsf
+    ports:
+      - 3000:3000
+    image: vsf2
+    restart: unless-stopped
+    volumes:
+      - nuxt_build:/apt/.nuxt
+    depends_on:
+      - odoo
+      - redis
+    networks:
+      - net1
+      
 volumes:
   db_home:
     external: false
@@ -121,6 +140,8 @@ volumes:
   redis_data:
     external: false
   minio_storage: 
+    external: false
+  nuxt_build:
     external: false
 
 networks:
